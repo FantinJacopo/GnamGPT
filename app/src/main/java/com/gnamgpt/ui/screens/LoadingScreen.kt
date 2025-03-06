@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
-import com.gnamgpt.ui.theme.PrimaryColor
 
 @Composable
 fun LoadingScreen(message: String = "Loading...") {
@@ -20,7 +19,7 @@ fun LoadingScreen(message: String = "Loading...") {
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            CircularProgressIndicator(color = PrimaryColor)
+            CircularProgressIndicator()
             Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = message,

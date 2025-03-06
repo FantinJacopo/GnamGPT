@@ -7,4 +7,69 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Colori di sfondo -->
+    <color name="Background50">#F4F4F0</color>
+    <color name="Background100">#E9E9E2</color>
+    <color name="Background200">#D4D4C4</color>
+    <color name="Background300">#BEBEA7</color>
+    <color name="Background400">#A8A88A</color>
+    <color name="Background500">#93936C</color>
+    <color name="Background600">#757557</color>
+    <color name="Background700">#585841</color>
+    <color name="Background800">#3B3B2B</color>
+    <color name="Background900">#1D1D16</color>
+    <color name="Background950">#0F0F0B</color>
+
+    <!-- Colori del testo -->
+    <color name="Text50">#0F0F0B</color>
+    <color name="Text100">#1D1D16</color>
+    <color name="Text200">#3A3A2C</color>
+    <color name="Text300">#575742</color>
+    <color name="Text400">#747458</color>
+    <color name="Text500">#91916E</color>
+    <color name="Text600">#A7A78B</color>
+    <color name="Text700">#BDBDA8</color>
+    <color name="Text800">#D3D3C5</color>
+    <color name="Text900">#E9E9E2</color>
+    <color name="Text950">#F4F4F0</color>
+
+    <!-- Colori primari -->
+    <color name="Primary50">#ECF8F1</color>
+    <color name="Primary100">#D9F2E3</color>
+    <color name="Primary200">#B4E4C8</color>
+    <color name="Primary300">#8ED7AC</color>
+    <color name="Primary400">#68CA91</color>
+    <color name="Primary500">#42BD75</color>
+    <color name="Primary600">#35975E</color>
+    <color name="Primary700">#287146</color>
+    <color name="Primary800">#1B4B2F</color>
+    <color name="Primary900">#0D2617</color>
+    <color name="Primary950">#07130C</color>
+
+    <!-- Colori secondari -->
+    <color name="Secondary50">#FBECE9</color>
+    <color name="Secondary100">#F7D9D4</color>
+    <color name="Secondary200">#EFb2A9</color>
+    <color name="Secondary300">#E78C7E</color>
+    <color name="Secondary400">#DF6553</color>
+    <color name="Secondary500">#D73F28</color>
+    <color name="Secondary600">#AC3220</color>
+    <color name="Secondary700">#812618</color>
+    <color name="Secondary800">#561910</color>
+    <color name="Secondary900">#2B0D08</color>
+    <color name="Secondary950">#160604</color>
+
+    <!-- Colori terziari -->
+    <color name="Accent50">#FDF6E8</color>
+    <color name="Accent100">#FAECD1</color>
+    <color name="Accent200">#F6DAA2</color>
+    <color name="Accent300">#F1C774</color>
+    <color name="Accent400">#EDB545</color>
+    <color name="Accent500">#E8A217</color>
+    <color name="Accent600">#BA8212</color>
+    <color name="Accent700">#8B610E</color>
+    <color name="Accent800">#5D4109</color>
+    <color name="Accent900">#2E2005</color>
+    <color name="Accent950">#171002</color>
 </resources>

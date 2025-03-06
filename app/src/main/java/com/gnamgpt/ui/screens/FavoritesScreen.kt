@@ -12,7 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.gnamgpt.ui.theme.PrimaryColor
+import com.gnamgpt.ui.theme.*
 
 @Composable
 fun FavoritesScreen(favoriteRecipes: List<String>, onRemoveFavorite: (String) -> Unit, onRecipeClick: (String) -> Unit) {
@@ -41,7 +41,7 @@ fun RecipeItem(recipeName: String, onClick: () -> Unit, onRemoveFavorite: () -> 
             Icon(Icons.Default.Info, contentDescription = "View Recipe Details")
         }
         IconButton(onClick = onRemoveFavorite) {
-            Icon(Icons.Default.Delete, contentDescription = "Remove from Favorites", tint = PrimaryColor)
+            Icon(Icons.Default.Delete, contentDescription = "Remove from Favorites")
         }
     }
 }

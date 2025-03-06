@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema Chiaro -->
+    <style name="Theme.GnamGPT.Light" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/Primary400</item>
+        <item name="colorOnPrimary">@color/Text100</item>
+        <item name="colorSecondary">@color/Accent400</item>
+        <item name="colorOnSecondary">@color/Text50</item>
+        <item name="background">@color/Background200</item>
+        <item name="colorOnBackground">@color/Text100</item>
+        <item name="colorSurface">@color/Background200</item>
+        <item name="colorOnSurface">@color/Text100</item>
+        <item name="colorError">@color/Accent400</item>
+        <item name="colorOnError">@color/Text950</item>
+        <item name="colorAccent">@color/Accent400</item>
+
+        <!-- Font personalizzati TODO: Aggiungere font personalizzati
+        <item name="android:fontFamily">@font/font_da_aggiungere</item>-->
+    </style>
+
+    <!-- Tema Scuro -->
+    <style name="Theme.GnamGPT.Dark" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/Primary400</item>
+        <item name="colorOnPrimary">@color/Text900</item>
+        <item name="colorSecondary">@color/Accent400</item>
+        <item name="colorOnSecondary">@color/Text900</item>
+        <item name="background">@color/Background200</item>
+        <item name="colorOnBackground">@color/Text900</item>
+        <item name="colorSurface">@color/Background900</item>
+        <item name="colorOnSurface">@color/Text900</item>
+        <item name="colorError">@color/Accent400</item>
+        <item name="colorOnError">@color/Text950</item>
+        <item name="colorAccent">@color/Accent400</item>
+        <!-- Font personalizzati TODO: Aggiungere font personalizzati
+        <item name="android:fontFamily">@font/font_da_aggiungere</item>-->
+    </style>
+</resources>

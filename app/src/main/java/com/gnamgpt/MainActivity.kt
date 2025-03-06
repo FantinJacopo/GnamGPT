@@ -1,4 +1,4 @@
-package com.gnamgpt.ui
+package com.gnamgpt
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
