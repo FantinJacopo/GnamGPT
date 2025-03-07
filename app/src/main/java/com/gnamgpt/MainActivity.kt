@@ -3,10 +3,11 @@ package com.gnamgpt
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.*
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.*
 import com.gnamgpt.ui.screens.HomeScreen
 import com.gnamgpt.ui.screens.LoginScreen
+import com.gnamgpt.viewmodel.AuthViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,12 +22,14 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 composable("home") {
+                    val authViewModel: AuthViewModel = viewModel()
+
                     HomeScreen(
                         onProfileClick = { navController.navigate("login") },
-                        authViewModel = TODO(),
-                        onSettingsClick = TODO(),
-                        onFavoritesClick = TODO(),
-                        onRecipeClick = TODO()
+                        authViewModel = authViewModel,
+                        onSettingsClick = { navController.navigate("settings") },
+                        onFavoritesClick = { navController.navigate("favorites") },
+                        onRecipeClick = { recipeId -> navController.navigate("recipe_detail/$recipeId") }
                     )
                 }
             }
