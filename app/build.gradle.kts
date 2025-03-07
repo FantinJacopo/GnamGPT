@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -40,6 +41,18 @@ android {
 }
 
 dependencies {
+    // Firebase e google Auth
+    implementation(platform(libs.firebase.bom))
+    // TODO: Add the dependencies for Firebase products you want to use
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.play.services.auth)
+
+    // Retrofit e gson
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)

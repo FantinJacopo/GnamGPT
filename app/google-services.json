@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "196148605260",
+    "project_id": "gnamgpt",
+    "storage_bucket": "gnamgpt.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196148605260:android:01247a7d9e011e580b1fe9",
+        "android_client_info": {
+          "package_name": "com.gnamgpt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATM5dWrQCJmqtu4tKJ0L3KGjcvYnm1zT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
