@@ -9,6 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.colorResource
 import com.gnamgpt.R
+import com.gnamgpt.ui.theme.AppColors
+import com.gnamgpt.ui.theme.LocalAppColors
+import com.gnamgpt.ui.theme.ProvideAppColors
 
 // Applica il tema personalizzato all'app
 @Composable
@@ -16,57 +19,61 @@ fun GnamGPTTheme(
     isDarkMode: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val lightColors = remember {
-        lightColorScheme(
-            primary = colorResource(R.color.Primary400),
-            onPrimary = colorResource(R.color.Text100),
-            secondary = colorResource(R.color.Accent400),
-            onSecondary = colorResource(R.color.Text50),
-            tertiary = colorResource(R.color.Secondary400),
-            onTertiary = colorResource(R.color.Text100),
-            background = colorResource(R.color.Background200),
-            onBackground = colorResource(R.color.Text100),
-            surface = colorResource(R.color.Background200),
-            onSurface = colorResource(R.color.Text100),
-            surfaceVariant = colorResource(R.color.Background300),
-            error = colorResource(R.color.Accent400),
-            onError = colorResource(R.color.Text950),
-            primaryContainer = colorResource(R.color.Primary200),
-            onPrimaryContainer = colorResource(R.color.Text100),
-            secondaryContainer = colorResource(R.color.Accent200),
-            onSecondaryContainer = colorResource(R.color.Text100),
-            tertiaryContainer = colorResource(R.color.Secondary200),
-            outline = colorResource(R.color.Text300)
+    ProvideAppColors {
+        val colors = LocalAppColors.current
+
+        val lightColors = remember {
+            lightColorScheme(
+                primary = colors.primary400,
+                onPrimary = colors.text100,
+                secondary = colors.accent400,
+                onSecondary = colors.text50,
+                tertiary = colors.secondary400,
+                onTertiary = colors.text100,
+                background = colors.background200,
+                onBackground = colors.text100,
+                surface = colors.background200,
+                onSurface = colors.text100,
+                surfaceVariant = colors.background300,
+                error = colors.accent400,
+                onError = colors.text950,
+                primaryContainer = colors.primary200,
+                onPrimaryContainer = colors.text100,
+                secondaryContainer = colors.accent200,
+                onSecondaryContainer = colors.text100,
+                tertiaryContainer = colors.secondary200,
+                outline = colors.text300
+            )
+        }
+
+        val darkColors = remember {
+            darkColorScheme(
+                primary = colors.primary400,
+                onPrimary = colors.text900,
+                secondary = colors.accent400,
+                onSecondary = colors.text900,
+                tertiary = colors.secondary600,
+                onTertiary = colors.text900,
+                background = colors.background200,
+                onBackground = colors.text900,
+                surface = colors.background900,
+                onSurface = colors.text900,
+                surfaceVariant = colors.background700,
+                error = colors.accent400,
+                onError = colors.text950,
+                primaryContainer = colors.primary700,
+                onPrimaryContainer = colors.text800,
+                secondaryContainer = colors.accent700,
+                onSecondaryContainer = colors.text800,
+                tertiaryContainer = colors.secondary700,
+                outline = colors.text600
+            )
+        }
+
+        MaterialTheme(
+            colorScheme = if (isDarkMode) darkColors else lightColors,
+            typography = Typography,
+            content = content
         )
     }
-
-    val darkColors = remember {
-        darkColorScheme(
-            primary = colorResource(R.color.Primary400),
-            onPrimary = colorResource(R.color.Text900),
-            secondary = colorResource(R.color.Accent400),
-            onSecondary = colorResource(R.color.Text900),
-            tertiary = colorResource(R.color.Secondary600),
-            onTertiary = colorResource(R.color.Text900),
-            background = colorResource(R.color.Background200),
-            onBackground = colorResource(R.color.Text900),
-            surface = colorResource(R.color.Background900),
-            onSurface = colorResource(R.color.Text900),
-            surfaceVariant = colorResource(R.color.Background700),
-            error = colorResource(R.color.Accent400),
-            onError = colorResource(R.color.Text950),
-            primaryContainer = colorResource(R.color.Primary700),
-            onPrimaryContainer = colorResource(R.color.Text800),
-            secondaryContainer = colorResource(R.color.Accent700),
-            onSecondaryContainer = colorResource(R.color.Text800),
-            tertiaryContainer = colorResource(R.color.Secondary700),
-            outline = colorResource(R.color.Text600)
-        )
-    }
-
-    MaterialTheme(
-        colorScheme = if (isDarkMode) darkColors else lightColors,
-        typography = Typography,
-        content = content
-    )
 }

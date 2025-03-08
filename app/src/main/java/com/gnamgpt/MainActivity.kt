@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import com.gnamgpt.ui.navigation.AppNavGraph
 import androidx.navigation.compose.rememberNavController
+import com.gnamgpt.ui.theme.GnamGPTTheme
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
 fun GnamGPT() {
     val navController = rememberNavController()
 
-    MaterialTheme {
+    GnamGPTTheme {
         AppNavGraph(navController = navController)
     }
 }
