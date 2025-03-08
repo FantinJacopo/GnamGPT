@@ -58,11 +58,14 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("GnamGPT", fontWeight = FontWeight.Bold) },
+            GnamGptTopAppBar(
+                title = "GnamGPT",
                 actions = {
                     IconButton(onClick = onSettingsClick) {
-                        Icon(Icons.Default.Settings, contentDescription = "Impostazioni")
+                        Icon(
+                            Icons.Default.Settings, 
+                            contentDescription = "Impostazioni"
+                        )
                     }
                     IconButton(onClick = onFavoritesClick) {
                         Icon(Icons.Default.Favorite, contentDescription = "Preferiti")
@@ -85,7 +88,9 @@ fun HomeScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* TODO: Aggiungere funzionalità AI */ }
+                onClick = { /* TODO: Aggiungere funzionalità AI */ },
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Assistente AI")
             }
@@ -106,9 +111,9 @@ fun HomeScreen(
                     modifier = Modifier.padding(top = 16.dp)
                 )
                 Text(
-                    "Cosa vuoi cucinare oggi?", //TODO: sarebbe figo mettere una scritta che appare dinamicamente, come fosse l'AI a parlare all'utente
+                    "Cosa vuoi cucinare oggi?",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                 )
             }
             
@@ -122,15 +127,19 @@ fun HomeScreen(
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
-                
+
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.padding(vertical = 12.dp)
                 ) {
                     items(categories) { category ->
-                        CategoryItem(name = category.first, icon = category.second) {
-                            // TODO: Aggiungere cosa deve fare la categoria -> portare alla pagina della visualizzazione per categoria
-                        }
+                        CategoryItem(
+                            name = category.first,
+                            icon = category.second,
+                            onClick = {
+                                // TODO: Aggiungere cosa deve fare la categoria -> portare alla pagina della visualizzazione per categoria
+                            }
+                        )
                     }
                 }
             }
@@ -146,7 +155,12 @@ fun HomeScreen(
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
-                    TextButton(onClick = { /* TODO: Aggiungere funzionalità per vedere tutte le ricette */ }) {
+                    TextButton(
+                        onClick = { /* TODO: Aggiungere funzionalità per vedere tutte le ricette */ },
+                        colors = ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.primary
+                        )
+                    ) {
                         Text("Vedi tutte")
                     }
                 }
@@ -195,7 +209,13 @@ fun SearchBar() {
 }
 
 @Composable
-fun CategoryItem(name: String, icon: ImageVector, onClick: () -> Unit) {
+fun CategoryItem(
+    name: String, 
+    icon: ImageVector, 
+    onClick: () -> Unit,
+    containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -207,12 +227,12 @@ fun CategoryItem(name: String, icon: ImageVector, onClick: () -> Unit) {
             modifier = Modifier
                 .size(60.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .background(MaterialTheme.colorScheme.primaryContainer)
+                .background(containerColor)
         ) {
             Icon(
                 icon, 
                 contentDescription = name,
-                tint = MaterialTheme.colorScheme.primary,
+                tint = contentColor,
                 modifier = Modifier.size(32.dp)
             )
         }
@@ -220,6 +240,7 @@ fun CategoryItem(name: String, icon: ImageVector, onClick: () -> Unit) {
         Text(
             name,
             style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -265,5 +286,17 @@ fun HomeScreenPreview() {
         onFavoritesClick = {},
         onProfileClick = {},
         onSettingsClick = {}
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun GnamGptTopAppBar(
+    title: String,
+    actions: @Composable RowScope.() -> Unit = {}
+) {
+    TopAppBar(
+        title = { Text(title, fontWeight = FontWeight.Bold) },
+        actions = actions
     )
 }

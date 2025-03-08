@@ -38,10 +38,18 @@ fun RecipeItem(recipeName: String, onClick: () -> Unit, onRemoveFavorite: () -> 
     Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
         Text(recipeName, modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
         IconButton(onClick = onClick) {
-            Icon(Icons.Default.Info, contentDescription = "View Recipe Details")
+            Icon(
+                Icons.Default.Info, 
+                contentDescription = "View Recipe Details",
+                tint = MaterialTheme.colorScheme.primary
+            )
         }
         IconButton(onClick = onRemoveFavorite) {
-            Icon(Icons.Default.Delete, contentDescription = "Remove from Favorites")
+            Icon(
+                Icons.Default.Delete, 
+                contentDescription = "Remove from Favorites",
+                tint = MaterialTheme.colorScheme.error
+            )
         }
     }
 }

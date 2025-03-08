@@ -18,12 +18,22 @@ fun SettingsScreen(
     var isDarkModeEnabled by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Settings", fontSize = 28.sp, style = MaterialTheme.typography.headlineLarge)
+        Text(
+            "Settings", 
+            fontSize = 28.sp, 
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.onBackground
+        )
 
         Spacer(modifier = Modifier.height(24.dp))
 
         // Cambio Lingua
-        TextButton(onClick = onChangeLanguage) {
+        TextButton(
+            onClick = onChangeLanguage,
+            colors = ButtonDefaults.textButtonColors(
+                contentColor = MaterialTheme.colorScheme.primary
+            )
+        ) {
             Text("Change Language")
         }
 
@@ -31,7 +41,11 @@ fun SettingsScreen(
 
         // Notifiche
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("Enable Notifications", modifier = Modifier.weight(1f))
+            Text(
+                "Enable Notifications", 
+                modifier = Modifier.weight(1f),
+                color = MaterialTheme.colorScheme.onBackground
+            )
             Switch(
                 checked = isNotificationsEnabled,
                 onCheckedChange = { isNotificationsEnabled = it; onToggleNotifications(it) }

@@ -1,53 +1,72 @@
 package com.gnamgpt.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.remember
 import androidx.compose.ui.res.colorResource
 import com.gnamgpt.R
-import androidx.compose.material3.Shapes as Shapes1
-
-// Tema Chiaro
-val lightColors = lightColorScheme(
-    primary = Primary400, // Esempio di colore primario
-    onPrimary = Text100, // Colore per il testo sopra il primary
-    secondary = Accent400, // Esempio di colore secondario,
-    onSecondary = Text50, // Colore per il testo sopra il secondary,
-    background = Background200, // Colore di sfondo
-    onBackground = Text100, // Colore per il testo sopra lo sfondo
-    surface = Background200, // Superficie chiara
-    onSurface = Text100, // Colore per il testo sopra la superficie
-    error = Accent400,
-    onError = Text950,
-)
-
-// Tema Scuro
-val darkColors = darkColorScheme(
-    primary = Primary400,
-    onPrimary = Text900,
-    secondary = Accent400,
-    onSecondary = Text900,
-    background = Background200,
-    onBackground = Text900,
-    surface = Background900,
-    onSurface = Text900,
-    error = Accent400,
-    onError = Text950,
-)
 
 // Applica il tema personalizzato all'app
 @Composable
 fun GnamGPTTheme(
-    isDarkMode: Boolean = true,
+    isDarkMode: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
+    val lightColors = remember {
+        lightColorScheme(
+            primary = colorResource(R.color.Primary400),
+            onPrimary = colorResource(R.color.Text100),
+            secondary = colorResource(R.color.Accent400),
+            onSecondary = colorResource(R.color.Text50),
+            tertiary = colorResource(R.color.Secondary400),
+            onTertiary = colorResource(R.color.Text100),
+            background = colorResource(R.color.Background200),
+            onBackground = colorResource(R.color.Text100),
+            surface = colorResource(R.color.Background200),
+            onSurface = colorResource(R.color.Text100),
+            surfaceVariant = colorResource(R.color.Background300),
+            error = colorResource(R.color.Accent400),
+            onError = colorResource(R.color.Text950),
+            primaryContainer = colorResource(R.color.Primary200),
+            onPrimaryContainer = colorResource(R.color.Text100),
+            secondaryContainer = colorResource(R.color.Accent200),
+            onSecondaryContainer = colorResource(R.color.Text100),
+            tertiaryContainer = colorResource(R.color.Secondary200),
+            outline = colorResource(R.color.Text300)
+        )
+    }
+
+    val darkColors = remember {
+        darkColorScheme(
+            primary = colorResource(R.color.Primary400),
+            onPrimary = colorResource(R.color.Text900),
+            secondary = colorResource(R.color.Accent400),
+            onSecondary = colorResource(R.color.Text900),
+            tertiary = colorResource(R.color.Secondary600),
+            onTertiary = colorResource(R.color.Text900),
+            background = colorResource(R.color.Background200),
+            onBackground = colorResource(R.color.Text900),
+            surface = colorResource(R.color.Background900),
+            onSurface = colorResource(R.color.Text900),
+            surfaceVariant = colorResource(R.color.Background700),
+            error = colorResource(R.color.Accent400),
+            onError = colorResource(R.color.Text950),
+            primaryContainer = colorResource(R.color.Primary700),
+            onPrimaryContainer = colorResource(R.color.Text800),
+            secondaryContainer = colorResource(R.color.Accent700),
+            onSecondaryContainer = colorResource(R.color.Text800),
+            tertiaryContainer = colorResource(R.color.Secondary700),
+            outline = colorResource(R.color.Text600)
+        )
+    }
+
     MaterialTheme(
         colorScheme = if (isDarkMode) darkColors else lightColors,
-        typography = Typography, // TODO: controllare il font se mi piace e ho tempo
+        typography = Typography,
         content = content
     )
 }

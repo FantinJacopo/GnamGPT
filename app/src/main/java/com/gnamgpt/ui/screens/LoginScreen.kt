@@ -40,8 +40,6 @@ fun LoginScreen(
         })
     }
 
-    authViewModel.debugShowSha1Certificate(activity)
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,8 +73,8 @@ fun LoginScreen(
         Button(
             onClick = { launcher.launch(googleSignInClient.signInIntent) },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color.DarkGray
+                containerColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.onSurface
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -132,7 +130,7 @@ fun LoginScreen(
         Text(
             "Accedendo, accetti i nostri Termini di servizio e la Privacy Policy",
             style = MaterialTheme.typography.bodySmall,
-            color = Color.Gray
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
         )
 
         errorMessage?.let { error ->
