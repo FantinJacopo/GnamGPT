@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GnamGPT</string>
+    <string name="default_web_client_id" translatable="false">196148605260-tq8sa7o0992gvtp3o959aq8a5fu2q8o6.apps.googleusercontent.com</string>
 </resources>

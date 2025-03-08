@@ -29,15 +29,18 @@ fun LoginScreen(
 ) {
     val context = LocalContext.current
     val activity = context as Activity
+    var errorMessage by remember { mutableStateOf<String?>(null) }
 
     val googleSignInClient = authViewModel.getGoogleSignInClient(activity)
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         authViewModel.handleGoogleSignInResult(result.data, onSuccess = {
             onLoginSuccess()
-        }, onFailure = {
-            // TODO: Gestire l'errore
+        }, onFailure = { error ->
+            errorMessage = error
         })
     }
+
+    authViewModel.debugShowSha1Certificate(activity)
 
     Column(
         modifier = Modifier
@@ -131,6 +134,15 @@ fun LoginScreen(
             style = MaterialTheme.typography.bodySmall,
             color = Color.Gray
         )
+
+        errorMessage?.let { error ->
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = error,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
     }
 }
 
