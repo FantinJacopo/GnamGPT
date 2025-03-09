@@ -49,6 +49,8 @@ fun CategoryMealsScreen(
                         RecipeCard(
                             name = meal.strMeal,
                             imageUrl = meal.strMealThumb ?: "",
+                            recipeId = meal.idMeal,
+                            usersDatabase = mealViewModel.usersDatabase,
                             onClick = { onRecipeClick(meal.idMeal) }
                         )
                     }

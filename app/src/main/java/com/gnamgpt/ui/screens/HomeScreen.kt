@@ -162,6 +162,7 @@ fun HomeScreen(
                             mealViewModel.loadAllMealsByCategory(category.strCategory)
                             onCategoryClick(category.strCategory)
                         },
+                        usersDatabase = mealViewModel.usersDatabase,
                         onRecipeClick = { recipe ->
                             Log.d("HomeScreen", "onRecipeClick: recipeId = $recipe")
                             onRecipeClick(recipe)
