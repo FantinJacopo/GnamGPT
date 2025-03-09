@@ -1,5 +1,6 @@
 package com.gnamgpt.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
@@ -46,9 +47,11 @@ class MealViewModel : ViewModel() {
             _mealDetail.value = response
         }
     }
+
     fun searchMeal(name: String) {
         viewModelScope.launch {
             _meals.value = repository.searchMealByName(name)?.meals
+            Log.d("MealViewModel", "Numero di pasti trovati: ${meals.value?.size ?: 0}")
         }
     }
 

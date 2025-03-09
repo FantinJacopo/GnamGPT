@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 
 import com.gnamgpt.data.UsersDatabase
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun FavoriteMeal(
@@ -33,6 +34,8 @@ fun FavoriteMeal(
         }
     }
 
+
+    if (FirebaseAuth.getInstance().currentUser == null) return // TODO: Se ho tempo fare pop-up che dica che per salvare i preferiti bisogna loggarsi
     IconButton(
         modifier = modifier,
         onClick = {

@@ -26,7 +26,7 @@ import com.gnamgpt.data.UsersDatabase
 @Composable
 fun RecipeCard(
     name: String,
-    imageUrl: String,
+    imageUrl: String?,
     recipeId: String,
     usersDatabase: UsersDatabase,
     onClick: () -> Unit

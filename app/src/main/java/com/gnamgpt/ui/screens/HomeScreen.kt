@@ -50,9 +50,10 @@ fun HomeScreen(
     onCategoryClick: (String) -> Unit
 ) {
     val user = FirebaseAuth.getInstance().currentUser
-    
+
     val categories by mealViewModel.categories.collectAsState()
     val homeCategoryMeals by mealViewModel.homeCategoryMeals.collectAsState()
+    val meals by mealViewModel.meals.collectAsState()
 
     LaunchedEffect(Unit) {
         if (categories == null) {
@@ -67,7 +68,7 @@ fun HomeScreen(
                 actions = {
                     IconButton(onClick = onSettingsClick) {
                         Icon(
-                            Icons.Default.Settings, 
+                            Icons.Default.Settings,
                             contentDescription = "Impostazioni"
                         )
                     }
@@ -120,11 +121,43 @@ fun HomeScreen(
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                 )
             }
-            
             item {
-                SearchBar()
+                SearchBar(
+                    onSubmit = { query ->
+                        mealViewModel.searchMeal(query)
+                        Log.d("HomeScreen", "onSubmit: query = $query")
+                        Log.d("HomeScreen", "risposta = $meals")
+                    }
+                )
             }
-            
+
+            if(meals != null && meals!!.isNotEmpty()){
+                item {
+                    Text(
+                        "Ricette trovate",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.padding(vertical = 12.dp)
+                    ) {
+                        items(meals!!) { meal ->
+                            Log.d("HomeScreen", "Ricetta trovata: $meal")
+                            RecipeCard(
+                                name = meal.strMeal,
+                                imageUrl = meal.strMealThumb!!,
+                                recipeId = meal.idMeal,
+                                usersDatabase = mealViewModel.usersDatabase,
+                                onClick = {
+                                    onRecipeClick(meal.idMeal)
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+
             item {
                 Text(
                     "Categorie",
@@ -137,7 +170,6 @@ fun HomeScreen(
                     modifier = Modifier.padding(vertical = 12.dp)
                 ) {
                     categories?.let { cats ->
-                        Log.d("HomeScreen", "Categorie da visualizzare: ${cats.size}")
                         items(cats) { category ->
                             CategoryItem(
                                 name = category.strCategory,
@@ -147,8 +179,6 @@ fun HomeScreen(
                                 }
                             )
                         }
-                    } ?: run {
-                        Log.d("HomeScreen", "Categorie è null")
                     }
                 }
             }
@@ -164,23 +194,14 @@ fun HomeScreen(
                         },
                         usersDatabase = mealViewModel.usersDatabase,
                         onRecipeClick = { recipe ->
-                            Log.d("HomeScreen", "onRecipeClick: recipeId = $recipe")
                             onRecipeClick(recipe)
                         }
                     )
                 }
-            } ?: run {
-                Log.d("HomeScreen", "categories è null prima del foreacgh")
-            }
-            
-            item {
-                Spacer(modifier = Modifier.height(80.dp))
             }
         }
     }
 }
-
-
 
 @Preview
 @Composable
