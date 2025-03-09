@@ -131,7 +131,7 @@ fun HomeScreen(
                 )
             }
 
-            if(meals != null && meals!!.isNotEmpty()){
+            meals?.takeIf { it.isNotEmpty() }?.let { nonEmptyMeals ->
                 item {
                     Text(
                         "Ricette trovate",
@@ -142,7 +142,7 @@ fun HomeScreen(
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                         modifier = Modifier.padding(vertical = 12.dp)
                     ) {
-                        items(meals!!) { meal ->
+                        items(nonEmptyMeals) { meal ->
                             Log.d("HomeScreen", "Ricetta trovata: $meal")
                             RecipeCard(
                                 name = meal.strMeal,
