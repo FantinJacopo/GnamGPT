@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import com.gnamgpt.data.MealRepository
 import com.gnamgpt.data.NetworkModule
+import com.gnamgpt.data.UsersDatabase
 import com.gnamgpt.model.Meal
 import com.gnamgpt.model.Category
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,8 +34,7 @@ class MealViewModel : ViewModel() {
     private val _mealDetail = MutableStateFlow<Recipe?>(null)
     val mealDetail: StateFlow<Recipe?> = _mealDetail
 
-
-
+    val usersDatabase = UsersDatabase()
 
     init {
         loadCategories(5)       //  TODO: se ho tempo lo metto fra le impostazioni?

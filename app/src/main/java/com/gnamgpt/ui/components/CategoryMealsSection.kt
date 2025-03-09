@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.gnamgpt.data.UsersDatabase
 import com.gnamgpt.model.Meal
 
 
@@ -26,6 +27,7 @@ import com.gnamgpt.model.Meal
 fun CategoryMealsSection(
     category: String,
     meals: List<Meal>,
+    usersDatabase: UsersDatabase,
     onSeeAllClick: () -> Unit,
     onRecipeClick: (String) -> Unit
 ) {
@@ -68,6 +70,8 @@ fun CategoryMealsSection(
                     RecipeCard(
                         name = meal.strMeal,
                         imageUrl = meal.strMealThumb ?: "",
+                        recipeId = meal.idMeal,
+                        usersDatabase = usersDatabase,
                         onClick = { onRecipeClick(meal.idMeal) }
                     )
                 }

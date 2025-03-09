@@ -50,8 +50,6 @@ fun AppNavGraph(navController: NavHostController) {
         
         composable("favorites") {
             FavoritesScreen(
-                favoriteRecipes = listOf("Recipe 1", "Recipe 2"), // Esempio per vedere se funziona
-                onRemoveFavorite = {  },
                 onRecipeClick = { recipe -> navController.navigate("recipe/$recipe") }
             )
         }

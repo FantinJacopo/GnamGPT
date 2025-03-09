@@ -48,7 +48,8 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.play.services.auth)
-    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore.ktx)
+
 
     // Retrofit e gson
     implementation(libs.retrofit)
@@ -71,6 +72,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.generativeai)
     implementation(libs.firebase.vertexai)
+    implementation(libs.play.services.fido)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

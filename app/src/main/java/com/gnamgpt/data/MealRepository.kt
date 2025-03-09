@@ -8,7 +8,6 @@ import com.gnamgpt.model.Meal
 import com.gnamgpt.model.Recipe
 
 class MealRepository(private val api: TheMealDBService) {
-
     suspend fun searchMealByName(name: String): MealResponse? {
         return try {
             api.searchMealByName(name)
