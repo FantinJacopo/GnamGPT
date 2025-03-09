@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.play.services.auth)
+    implementation(libs.firebase.database)
 
     // Retrofit e gson
     implementation(libs.retrofit)

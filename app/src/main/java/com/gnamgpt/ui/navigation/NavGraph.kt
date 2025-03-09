@@ -1,5 +1,7 @@
 package com.gnamgpt.ui.navigation
 
+import CategoryMealsScreen
+import RecipeDetailScreen
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -11,6 +13,7 @@ import com.gnamgpt.ui.screens.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gnamgpt.viewmodel.AuthViewModel
 import com.google.firebase.auth.FirebaseAuth
+import android.util.Log
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
@@ -40,7 +43,8 @@ fun AppNavGraph(navController: NavHostController) {
                         navController.navigate("login")
                     }
                 },
-                onSettingsClick = { navController.navigate("settings") }
+                onSettingsClick = { navController.navigate("settings") },
+                onCategoryClick = { category -> navController.navigate("category/$category") }
             )
         }
         
@@ -78,13 +82,16 @@ fun AppNavGraph(navController: NavHostController) {
                 onToggleDarkMode = { isEnabled ->  }
             )
         }
-        
-        composable("recipe/{recipeName}/{recipeImage}/{ingredients}") { backStackEntry ->
-            val recipeName = backStackEntry.arguments?.getString("recipeName") ?: "No Name"
-            val recipeImageUrl = backStackEntry.arguments?.getString("recipeImage") ?: ""
-            val ingredientsList = backStackEntry.arguments?.getString("ingredients")?.split(",") ?: emptyList()
 
-            RecipeDetailScreen(recipeName = recipeName, recipeImageUrl = recipeImageUrl, ingredients = ingredientsList)
+        composable("category/{categoryName}") { backStackEntry ->
+            val categoryName = backStackEntry.arguments?.getString("categoryName") ?: "No Category"
+            CategoryMealsScreen(categoryName = categoryName, onRecipeClick = { recipe -> navController.navigate("recipe/$recipe") })
+        }
+        
+        composable("recipe/{recipeId}") { backStackEntry ->
+            val recipeId = backStackEntry.arguments?.getString("recipeId") ?: "No Recipe"
+            Log.d("NavGraph", "RecipeDetailScreen: recipeId = $recipeId")
+            RecipeDetailScreen(mealId = recipeId)
         }
     }
 }

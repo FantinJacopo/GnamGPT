@@ -1,5 +1,7 @@
 package com.gnamgpt.ui.screens
 
+import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -26,35 +28,37 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.gnamgpt.R
+import com.gnamgpt.model.Meal
+import com.gnamgpt.model.Category
+import com.gnamgpt.ui.components.CategoryItem
+import com.gnamgpt.ui.components.CategoryMealsSection
+import com.gnamgpt.ui.components.GnamGptTopAppBar
+import com.gnamgpt.ui.components.RecipeCard
 import com.gnamgpt.viewmodel.AuthViewModel
+import com.gnamgpt.viewmodel.MealViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.gnamgpt.ui.components.SearchBar
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     authViewModel: AuthViewModel = viewModel(),
+    mealViewModel: MealViewModel = viewModel(),
     onProfileClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onFavoritesClick: () -> Unit,
-    onRecipeClick: (String) -> Unit
+    onRecipeClick: (String) -> Unit,
+    onCategoryClick: (String) -> Unit
 ) {
     val user = FirebaseAuth.getInstance().currentUser
     
-    // TODO: Sostituire con le ricette reali dall'API
-    val popularRecipes = listOf(
-        Pair("Pizza Margherita", "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3"),
-        Pair("Pasta Carbonara", "https://images.unsplash.com/photo-1612874742237-6526221588e3"),
-        Pair("Risotto ai Funghi", "https://images.unsplash.com/photo-1633964913849-0255c8bfdb8a"),
-        Pair("Lasagna", "https://images.unsplash.com/photo-1619895092538-128341789043")
-    )
-    
-    // TODO: Sostituire con le categorie reali dall'API
-    val categories = listOf(
-        Pair("Italiano", Icons.Default.Search),
-        Pair("Dolci", Icons.Default.Star),
-        Pair("Vegetariano", Icons.Default.Face),
-        Pair("Pesce", Icons.Default.Favorite)
-    )
+    val categories by mealViewModel.categories.collectAsState()
+    val homeCategoryMeals by mealViewModel.homeCategoryMeals.collectAsState()
+
+    LaunchedEffect(Unit) {
+        if (categories == null) {
+            mealViewModel.loadCategories()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -92,7 +96,7 @@ fun HomeScreen(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Assistente AI")
+                Icon(Icons.Filled.Star, contentDescription = "Assistente AI")
             }
         }
     ) { padding ->
@@ -132,49 +136,40 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.padding(vertical = 12.dp)
                 ) {
-                    items(categories) { category ->
-                        CategoryItem(
-                            name = category.first,
-                            icon = category.second,
-                            onClick = {
-                                // TODO: Aggiungere cosa deve fare la categoria -> portare alla pagina della visualizzazione per categoria
-                            }
-                        )
+                    categories?.let { cats ->
+                        Log.d("HomeScreen", "Categorie da visualizzare: ${cats.size}")
+                        items(cats) { category ->
+                            CategoryItem(
+                                name = category.strCategory,
+                                imageUrl = category.strCategoryThumb,
+                                onClick = {
+                                    onCategoryClick(category.strCategory)
+                                }
+                            )
+                        }
+                    } ?: run {
+                        Log.d("HomeScreen", "Categorie è null")
                     }
                 }
             }
 
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        "Ricette Popolari",
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold
-                    )
-                    TextButton(
-                        onClick = { /* TODO: Aggiungere funzionalità per vedere tutte le ricette */ },
-                        colors = ButtonDefaults.textButtonColors(
-                            contentColor = MaterialTheme.colorScheme.primary
-                        )
-                    ) {
-                        Text("Vedi tutte")
-                    }
-                }
-                
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.padding(vertical = 8.dp)
-                ) {
-                    items(popularRecipes) { recipe ->
-                        RecipeCard(name = recipe.first, imageUrl = recipe.second) {
-                            onRecipeClick(recipe.first.replace(" ", "_").lowercase())
+            categories?.forEach { category ->
+                item {
+                    CategoryMealsSection(
+                        category = category.strCategory,
+                        meals = homeCategoryMeals[category.strCategory] ?: emptyList(),
+                        onSeeAllClick = {
+                            mealViewModel.loadAllMealsByCategory(category.strCategory)
+                            onCategoryClick(category.strCategory)
+                        },
+                        onRecipeClick = { recipe ->
+                            Log.d("HomeScreen", "onRecipeClick: recipeId = $recipe")
+                            onRecipeClick(recipe)
                         }
-                    }
+                    )
                 }
+            } ?: run {
+                Log.d("HomeScreen", "categories è null prima del foreacgh")
             }
             
             item {
@@ -184,119 +179,16 @@ fun HomeScreen(
     }
 }
 
-// TODO: SE HO TEMPO: spostare i componesable "secondari" in file a parte, il codice è troppo lungo
 
-@Composable
-fun SearchBar() {
-    var text by remember { mutableStateOf("") }
-    
-    OutlinedTextField(
-        value = text,
-        onValueChange = { text = it },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        placeholder = { Text("Cerca ricette...") },
-        leadingIcon = { 
-            Icon(
-                Icons.Default.Search,
-                contentDescription = "Cerca"
-            ) 
-        },
-        shape = RoundedCornerShape(12.dp),
-        singleLine = true
-    )
-}
-
-@Composable
-fun CategoryItem(
-    name: String, 
-    icon: ImageVector, 
-    onClick: () -> Unit,
-    containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
-    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .width(80.dp)
-            .clickable(onClick = onClick)
-    ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .size(60.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(containerColor)
-        ) {
-            Icon(
-                icon, 
-                contentDescription = name,
-                tint = contentColor,
-                modifier = Modifier.size(32.dp)
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            name,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onBackground,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
-    }
-}
-
-@Composable
-fun RecipeCard(name: String, imageUrl: String, onClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .width(180.dp)
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-    ) {
-        Column {
-            AsyncImage(
-                model = imageUrl,
-                contentDescription = name,
-                placeholder = painterResource(id = R.drawable.ic_launcher_background),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(120.dp),
-                contentScale = ContentScale.Crop
-            )
-            Text(
-                name,
-                modifier = Modifier.padding(12.dp),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Medium,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-    }
-}
 
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(
+    /*HomeScreen(
         onRecipeClick = {},
         onFavoritesClick = {},
         onProfileClick = {},
-        onSettingsClick = {}
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun GnamGptTopAppBar(
-    title: String,
-    actions: @Composable RowScope.() -> Unit = {}
-) {
-    TopAppBar(
-        title = { Text(title, fontWeight = FontWeight.Bold) },
-        actions = actions
-    )
+        onSettingsClick = {},
+        onCategoryClick = {}
+    )*/
 }

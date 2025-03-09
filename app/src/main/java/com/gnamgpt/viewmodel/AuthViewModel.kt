@@ -74,21 +74,4 @@ class AuthViewModel : ViewModel() {
         auth.signOut()
         viewModelScope.launch { _isLoggedIn.emit(false) }
     }
-
-    fun debugShowSha1Certificate(activity: Activity) {
-        try {
-            val info = activity.packageManager.getPackageInfo(
-                activity.packageName,
-                android.content.pm.PackageManager.GET_SIGNATURES
-            )
-            for (signature in info.signatures!!) {
-                val md = java.security.MessageDigest.getInstance("SHA1")
-                md.update(signature.toByteArray())
-                val sha1 = android.util.Base64.encodeToString(md.digest(), android.util.Base64.DEFAULT)
-                android.util.Log.d("AUTH_DEBUG", "SHA1: $sha1")
-            }
-        } catch (e: Exception) {
-            android.util.Log.e("AUTH_DEBUG", "Error getting SHA1: ${e.message}")
-        }
-    }
 }
