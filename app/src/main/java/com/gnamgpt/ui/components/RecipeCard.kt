@@ -12,7 +12,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -46,7 +45,7 @@ fun RecipeCard(
                 AsyncImage(
                     model = imageUrl,
                     contentDescription = name,
-                    placeholder = painterResource(id = R.drawable.ic_launcher_background),
+                    placeholder = painterResource(id = R.drawable.ic_loading),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(120.dp),

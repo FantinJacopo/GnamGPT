@@ -17,6 +17,7 @@ import android.util.Log
 import androidx.compose.runtime.remember
 import com.gnamgpt.data.UsersDatabase
 import com.gnamgpt.ui.theme.GnamGPTTheme
+import com.gnamgpt.viewmodel.AssistantViewModel
 import com.gnamgpt.viewmodel.UserViewModel
 
 @Composable
@@ -26,6 +27,9 @@ fun AppNavGraph(navController: NavHostController) {
     var usersDatabase = remember { UsersDatabase() }
     
     NavHost(navController = navController, startDestination = startDestination) {
+
+        composable("assistant") { AiAssistantScreen() }
+
         composable("login") {
             LoginScreen {
                 navController.navigate("home") { 
@@ -49,7 +53,8 @@ fun AppNavGraph(navController: NavHostController) {
                     }
                 },
                 onSettingsClick = { navController.navigate("settings") },
-                onCategoryClick = { category -> navController.navigate("category/$category") }
+                onCategoryClick = { category -> navController.navigate("category/$category") },
+                onAssistantClick = { navController.navigate("assistant") }
             )
         }
         

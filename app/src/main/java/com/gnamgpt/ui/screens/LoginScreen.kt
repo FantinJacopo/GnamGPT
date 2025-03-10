@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -52,9 +53,8 @@ fun LoginScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // TODO: AGGIUNGERE logo dell'app
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                    painter = painterResource(id = R.drawable.ic_logo),
                     contentDescription = "Logo GnamGPT",
                     modifier = Modifier
                         .size(120.dp)
@@ -131,8 +131,9 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Text(
-                    "Accedendo, accetti i nostri Termini di servizio e la Privacy Policy",
+                    "Continuando, accetti i nostri Termini di servizio e la Privacy Policy: nessuna privacy è garantita.",
                     style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center
                 )
 
                 errorMessage?.let { error ->

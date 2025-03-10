@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -15,12 +17,17 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
+        val apiKey: String? = project.findProperty("API_KEY") as String?
+        buildConfigField("String", "API_KEY", "\"${apiKey ?: ""}\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "API_KEY", "\"${getApiKey()}\"")
+        }
         release {
+            buildConfigField("String", "API_KEY", "\"${getApiKey()}\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -28,6 +35,8 @@ android {
             )
         }
     }
+
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -37,6 +46,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -48,6 +58,8 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.firebase.firestore.ktx)
 
+    // Gemini
+    implementation(libs.okhttp)
 
     // Retrofit e gson
     implementation(libs.retrofit)
@@ -79,4 +91,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+fun getApiKey(): String {
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
+    return properties.getProperty("API_KEY")
 }

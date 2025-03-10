@@ -1,6 +1,5 @@
 package com.gnamgpt.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -48,7 +46,6 @@ fun CategoryItem(
             modifier = Modifier
                 .size(60.dp)
                 .clip(RoundedCornerShape(12.dp))
-                //.background(containerColor)
         ) {
             if (imageUrl != null) {
                 AsyncImage(
@@ -56,7 +53,7 @@ fun CategoryItem(
                     contentDescription = name,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.size(60.dp),
-                    placeholder = painterResource(id = R.drawable.ic_launcher_background)
+                    placeholder = painterResource(id = R.drawable.ic_loading)
                 )
             } else if (icon != null) {
                 Icon(
