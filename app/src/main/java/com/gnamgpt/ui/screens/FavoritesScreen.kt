@@ -1,5 +1,6 @@
 package com.gnamgpt.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -24,12 +25,13 @@ import com.gnamgpt.ui.components.RecipeItem
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun FavoritesScreen(
     onRecipeClick: (String) -> Unit,
     favoritesViewModel: FavoritesViewModel = viewModel()
 ) {
-    GnamGPTTheme {
+    Scaffold {
         val favoriteMeals by favoritesViewModel.favoriteMeals.collectAsState()
         val usersDatabase = remember { UsersDatabase() }
 

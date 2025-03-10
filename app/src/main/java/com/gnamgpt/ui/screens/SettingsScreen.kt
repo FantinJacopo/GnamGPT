@@ -1,5 +1,6 @@
 package com.gnamgpt.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -11,6 +12,7 @@ import androidx.compose.ui.unit.sp
 import com.gnamgpt.GnamGPTApp
 import com.gnamgpt.ui.theme.GnamGPTTheme
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun SettingsScreen(
     onChangeLanguage: () -> Unit,
@@ -31,7 +33,7 @@ fun SettingsScreen(
         isDarkModeEnabled = isDarkMode
     }
 
-    GnamGPTTheme {
+    Scaffold {
         var isNotificationsEnabled by remember { mutableStateOf(true) }
 
         Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {

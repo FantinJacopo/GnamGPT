@@ -1,5 +1,6 @@
 package com.gnamgpt.ui.screens
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -23,6 +24,7 @@ import com.gnamgpt.R
 import com.gnamgpt.ui.theme.GnamGPTTheme
 import com.gnamgpt.viewmodel.AuthViewModel
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun LoginScreen(
     authViewModel: AuthViewModel = viewModel(),
@@ -42,101 +44,103 @@ fun LoginScreen(
             })
         }
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // TODO: AGGIUNGERE logo dell'app
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentDescription = "Logo GnamGPT",
+        Scaffold {
+            Column(
                 modifier = Modifier
-                    .size(120.dp)
-                    .padding(bottom = 24.dp)
-            )
-
-            Text(
-                "GnamGPT",
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                "Il tuo assistente culinario intelligente",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(bottom = 48.dp)
-            )
-
-            // Pulsante Login con Google
-            Button(
-                onClick = { launcher.launch(googleSignInClient.signInIntent) },
-                /*colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    contentColor = MaterialTheme.colorScheme.onSurface
-                ),*/
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-                    .clip(RoundedCornerShape(28.dp)),
-                elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 2.dp
-                )
+                    .fillMaxSize()
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+                // TODO: AGGIUNGERE logo dell'app
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                    contentDescription = "Logo GnamGPT",
+                    modifier = Modifier
+                        .size(120.dp)
+                        .padding(bottom = 24.dp)
+                )
+
+                Text(
+                    "GnamGPT",
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Text(
+                    "Il tuo assistente culinario intelligente",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(bottom = 48.dp)
+                )
+
+                // Pulsante Login con Google
+                Button(
+                    onClick = { launcher.launch(googleSignInClient.signInIntent) },
+                    /*colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    ),*/
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                        .clip(RoundedCornerShape(28.dp)),
+                    elevation = ButtonDefaults.buttonElevation(
+                        defaultElevation = 2.dp
+                    )
                 ) {
-                    Box(
-                        modifier = Modifier.size(24.dp),
-                        contentAlignment = Alignment.Center
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_google),
-                            contentDescription = "Google Logo",
-                            modifier = Modifier.size(18.dp)
+                        Box(
+                            modifier = Modifier.size(24.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_google),
+                                contentDescription = "Google Logo",
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(12.dp))
+
+                        Text(
+                            "Accedi con Google",
+                            fontWeight = FontWeight.Medium
                         )
                     }
+                }
 
-                    Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
+                // Pulsante "Continua senza account"
+                OutlinedButton(
+                    onClick = onLoginSuccess,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                        .clip(RoundedCornerShape(28.dp))
+                ) {
                     Text(
-                        "Accedi con Google",
+                        "Continua senza account",
                         fontWeight = FontWeight.Medium
                     )
                 }
-            }
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-            // Pulsante "Continua senza account"
-            OutlinedButton(
-                onClick = onLoginSuccess,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-                    .clip(RoundedCornerShape(28.dp))
-            ) {
                 Text(
-                    "Continua senza account",
-                    fontWeight = FontWeight.Medium
+                    "Accedendo, accetti i nostri Termini di servizio e la Privacy Policy",
+                    style = MaterialTheme.typography.bodySmall,
                 )
-            }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Text(
-                "Accedendo, accetti i nostri Termini di servizio e la Privacy Policy",
-                style = MaterialTheme.typography.bodySmall,
-            )
-
-            errorMessage?.let { error ->
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = error,
-                )
+                errorMessage?.let { error ->
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = error,
+                    )
+                }
             }
         }
     }
