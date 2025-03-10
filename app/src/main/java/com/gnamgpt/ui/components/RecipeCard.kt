@@ -12,6 +12,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -29,7 +30,8 @@ fun RecipeCard(
     imageUrl: String?,
     recipeId: String,
     usersDatabase: UsersDatabase,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onLoginClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -66,7 +68,8 @@ fun RecipeCard(
                     recipeId = recipeId,
                     usersDatabase = usersDatabase,
                     modifier = Modifier
-                        .align(androidx.compose.ui.Alignment.TopEnd)
+                        .align(androidx.compose.ui.Alignment.TopEnd),
+                    onLoginClick = { onLoginClick() }
                 )
             }
         }

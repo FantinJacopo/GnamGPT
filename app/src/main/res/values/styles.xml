@@ -2,17 +2,21 @@
 <resources>
     <!-- Tema Chiaro -->
     <style name="Theme.GnamGPT.Light" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">@color/Primary400</item>
-        <item name="colorOnPrimary">@color/Text100</item>
-        <item name="colorSecondary">@color/Accent400</item>
-        <item name="colorOnSecondary">@color/Text50</item>
+        <item name="colorPrimary">@color/Primary</item>
+        <item name="colorOnPrimary">@color/Text</item>
+        <item name="colorSecondary">@color/Secondary</item>
+        <item name="colorOnSecondary">@color/Text</item>
         <item name="background">@color/Background200</item>
-        <item name="colorOnBackground">@color/Text100</item>
+        <item name="colorOnBackground">@color/Text</item>
         <item name="colorSurface">@color/Background200</item>
-        <item name="colorOnSurface">@color/Text100</item>
-        <item name="colorError">@color/Accent400</item>
-        <item name="colorOnError">@color/Text950</item>
-        <item name="colorAccent">@color/Accent400</item>
+        <item name="colorOnSurface">@color/Text</item>
+        <item name="colorError">@color/Error</item>
+        <item name="colorOnError">@color/Text</item>
+        <item name="colorAccent">@color/Accent</item>
+        <item name="colorSurfaceVariant">@color/Surface</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
 
         <!-- Font personalizzati TODO: Aggiungere font personalizzati
         <item name="android:fontFamily">@font/font_da_aggiungere</item>-->
@@ -20,17 +24,21 @@
 
     <!-- Tema Scuro -->
     <style name="Theme.GnamGPT.Dark" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/Primary400</item>
-        <item name="colorOnPrimary">@color/Text900</item>
+        <item name="colorPrimary">@color/PrimaryDark</item>
+        <item name="colorOnPrimary">@color/TextDark</item>
         <item name="colorSecondary">@color/Accent400</item>
-        <item name="colorOnSecondary">@color/Text900</item>
+        <item name="colorOnSecondary">@color/TextDark</item>
         <item name="background">@color/Background200</item>
-        <item name="colorOnBackground">@color/Text900</item>
+        <item name="colorOnBackground">@color/TextDark</item>
         <item name="colorSurface">@color/Background900</item>
-        <item name="colorOnSurface">@color/Text900</item>
-        <item name="colorError">@color/Accent400</item>
-        <item name="colorOnError">@color/Text950</item>
-        <item name="colorAccent">@color/Accent400</item>
+        <item name="colorOnSurface">@color/TextDark</item>
+        <item name="colorError">@color/ErrorDark</item>
+        <item name="colorOnError">@color/TextDark</item>
+        <item name="colorAccent">@color/AccentDark</item>
+        <item name="colorSurfaceVariant">@color/SurfaceDark</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <!-- Font personalizzati TODO: Aggiungere font personalizzati
         <item name="android:fontFamily">@font/font_da_aggiungere</item>-->
     </style>

@@ -64,11 +64,33 @@ data class AppColors(
     val accent800: Color,
     val accent900: Color,
     val accent950: Color,
+
+    val primary: Color,
+    val primaryDark: Color,
+    val secondary: Color,
+    val secondaryDark: Color,
+    val text: Color,
+    val textDark: Color,
+    val background: Color,
+    val backgroundDark: Color,
+    val surface: Color,
+    val surfaceDark: Color,
+    val accent: Color,
+    val accentDark: Color,
+    val info: Color,
+    val infoDark: Color,
+    val success: Color,
+    val successDark: Color,
+    val warning: Color,
+    val warningDark: Color,
+    val error: Color,
+    val errorDark: Color
 )
 
 val LocalAppColors = staticCompositionLocalOf<AppColors> {
     error("No AppColors provided")
 }
+
 
 @Composable
 fun ProvideAppColors(content: @Composable () -> Unit) {
@@ -131,7 +153,28 @@ fun ProvideAppColors(content: @Composable () -> Unit) {
         accent700 = colorResource(id = R.color.Accent700),
         accent800 = colorResource(id = R.color.Accent800),
         accent900 = colorResource(id = R.color.Accent900),
-        accent950 = colorResource(id = R.color.Accent950)
+        accent950 = colorResource(id = R.color.Accent950),
+
+        primary = colorResource(id = R.color.Primary),
+        primaryDark = colorResource(id = R.color.PrimaryDark),
+        secondary = colorResource(id = R.color.Secondary),
+        secondaryDark = colorResource(id = R.color.SecondaryDark),
+        text = colorResource(id = R.color.Text),
+        textDark = colorResource(id = R.color.TextDark),
+        background = colorResource(id = R.color.Background),
+        backgroundDark = colorResource(id = R.color.BackgroundDark),
+        accent = colorResource(id = R.color.Accent),
+        accentDark = colorResource(id = R.color.AccentDark),
+        info = colorResource(id = R.color.Info),
+        infoDark = colorResource(id = R.color.InfoDark),
+        success = colorResource(id = R.color.Success),
+        successDark = colorResource(id = R.color.SuccessDark),
+        warning = colorResource(id = R.color.Warning),
+        warningDark = colorResource(id = R.color.WarningDark),
+        error = colorResource(id = R.color.Error),
+        errorDark = colorResource(id = R.color.ErrorDark),
+        surface = colorResource(id = R.color.Surface),
+        surfaceDark = colorResource(id = R.color.SurfaceDark),
     )
     CompositionLocalProvider(LocalAppColors provides colors, content = content)
 }

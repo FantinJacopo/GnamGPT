@@ -14,11 +14,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gnamgpt.viewmodel.AuthViewModel
 import com.google.firebase.auth.FirebaseAuth
 import android.util.Log
+import androidx.compose.runtime.remember
+import com.gnamgpt.data.UsersDatabase
+import com.gnamgpt.ui.theme.GnamGPTTheme
+import com.gnamgpt.viewmodel.UserViewModel
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
     val isUserLoggedIn = FirebaseAuth.getInstance().currentUser != null
     val startDestination = if (isUserLoggedIn) "home" else "login"
+    var usersDatabase = remember { UsersDatabase() }
     
     NavHost(navController = navController, startDestination = startDestination) {
         composable("login") {
@@ -74,22 +79,32 @@ fun AppNavGraph(navController: NavHostController) {
         }
         
         composable("settings") {
+            val userViewModel: UserViewModel = viewModel()
             SettingsScreen(
                 onChangeLanguage = {  },
                 onToggleNotifications = { isEnabled ->  },
-                onToggleDarkMode = { isEnabled ->  }
+                onToggleDarkMode = { isEnabled ->
+                    Log.d("SettingsScreen", "Dark mode toggle: $isEnabled")
+                    userViewModel.updateTheme(isEnabled)
+                }
             )
         }
 
         composable("category/{categoryName}") { backStackEntry ->
             val categoryName = backStackEntry.arguments?.getString("categoryName") ?: "No Category"
-            CategoryMealsScreen(categoryName = categoryName, onRecipeClick = { recipe -> navController.navigate("recipe/$recipe") })
+            CategoryMealsScreen(
+                categoryName = categoryName,
+                onRecipeClick = { recipe -> navController.navigate("recipe/$recipe") },
+                onLoginClick = { navController.navigate("login") }
+            )
         }
         
         composable("recipe/{recipeId}") { backStackEntry ->
             val recipeId = backStackEntry.arguments?.getString("recipeId") ?: "No Recipe"
-            Log.d("NavGraph", "RecipeDetailScreen: recipeId = $recipeId")
-            RecipeDetailScreen(mealId = recipeId)
+            RecipeDetailScreen(
+                mealId = recipeId,
+                onLoginClick = { navController.navigate("login") },
+                usersDatabase = usersDatabase)
         }
     }
 }
@@ -97,7 +112,7 @@ fun AppNavGraph(navController: NavHostController) {
 @Composable
 fun App() {
     val navController = rememberNavController()
-    MaterialTheme {
+    GnamGPTTheme {
         AppNavGraph(navController = navController)
     }
 }
@@ -106,7 +121,7 @@ fun App() {
 @Composable
 fun PreviewApp() {
     val navController = rememberNavController()
-    MaterialTheme {
+    GnamGPTTheme {
         AppNavGraph(navController)
     }
 }

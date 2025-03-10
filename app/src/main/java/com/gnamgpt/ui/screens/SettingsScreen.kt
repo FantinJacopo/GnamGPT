@@ -3,10 +3,14 @@ package com.gnamgpt.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.gnamgpt.ui.theme.GnamGPTTheme
+import com.gnamgpt.viewmodel.UserViewModel
 
 @Composable
 fun SettingsScreen(
@@ -14,60 +18,63 @@ fun SettingsScreen(
     onToggleNotifications: (Boolean) -> Unit,
     onToggleDarkMode: (Boolean) -> Unit
 ) {
-    var isNotificationsEnabled by remember { mutableStateOf(true) }
-    var isDarkModeEnabled by remember { mutableStateOf(false) }
+    // Ottieni il ViewModel
+    val userViewModel: UserViewModel = viewModel()
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text(
-            "Settings", 
-            fontSize = 28.sp, 
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.onBackground
-        )
+    // Osserva il valore di isDarkMode dal ViewModel
+    val isDarkMode by userViewModel.isDarkMode.observeAsState(false)
 
-        Spacer(modifier = Modifier.height(24.dp))
+    // Variabile locale per la modalità scura in Settings
+    var isDarkModeEnabled by remember { mutableStateOf(isDarkMode) }
 
-        // Cambio Lingua
-        TextButton(
-            onClick = onChangeLanguage,
-            colors = ButtonDefaults.textButtonColors(
-                contentColor = MaterialTheme.colorScheme.primary
-            )
-        ) {
-            Text("Change Language")
-        }
+    // Sincronizza la variabile isDarkModeEnabled quando isDarkMode cambia
+    LaunchedEffect(isDarkMode) {
+        isDarkModeEnabled = isDarkMode
+    }
 
-        Spacer(modifier = Modifier.height(16.dp))
+    GnamGPTTheme {
+        var isNotificationsEnabled by remember { mutableStateOf(true) }
 
-        // Notifiche
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
             Text(
-                "Enable Notifications", 
-                modifier = Modifier.weight(1f),
-                color = MaterialTheme.colorScheme.onBackground
+                "Settings",
+                fontSize = 28.sp,
+                style = MaterialTheme.typography.headlineLarge,
             )
-            Switch(
-                checked = isNotificationsEnabled,
-                onCheckedChange = { isNotificationsEnabled = it; onToggleNotifications(it) }
-            )
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-        // Modalità scura
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("Enable Dark Mode", modifier = Modifier.weight(1f))
-            Switch(
-                checked = isDarkModeEnabled,
-                onCheckedChange = { isDarkModeEnabled = it; onToggleDarkMode(it) }
-            )
-        }
+            // Cambio Lingua
+            TextButton(
+                onClick = onChangeLanguage,
+                colors = ButtonDefaults.textButtonColors(
+                    contentColor = MaterialTheme.colorScheme.primary
+                )
+            ) {
+                Text("Change Language")
+            }
 
-        Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        // Info app
-        TextButton(onClick = {  }) {
-            Text("About this App")
+            // Modalità scura
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Dark Mode", modifier = Modifier.weight(1f))
+                Switch(
+                    checked = isDarkModeEnabled,
+                    onCheckedChange = {
+                        isDarkModeEnabled = it
+                        onToggleDarkMode(it)
+                        userViewModel.updateTheme(it) // Aggiorna anche il ViewModel
+                    }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Info app
+            TextButton(onClick = {  }) {
+                Text("About this App")
+            }
         }
     }
 }

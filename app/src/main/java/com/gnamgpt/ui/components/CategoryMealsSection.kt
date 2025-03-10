@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,7 +28,8 @@ fun CategoryMealsSection(
     meals: List<Meal>,
     usersDatabase: UsersDatabase,
     onSeeAllClick: () -> Unit,
-    onRecipeClick: (String) -> Unit
+    onRecipeClick: (String) -> Unit,
+    onLoginClick: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
@@ -44,9 +44,9 @@ fun CategoryMealsSection(
             )
             TextButton(
                 onClick = onSeeAllClick,
-                colors = ButtonDefaults.textButtonColors(
+                /*colors = ButtonDefaults.textButtonColors(
                     contentColor = MaterialTheme.colorScheme.primary
-                )
+                )*/
             ) {
                 Text("Vedi tutte")
             }
@@ -72,7 +72,8 @@ fun CategoryMealsSection(
                         imageUrl = meal.strMealThumb ?: "",
                         recipeId = meal.idMeal,
                         usersDatabase = usersDatabase,
-                        onClick = { onRecipeClick(meal.idMeal) }
+                        onClick = { onRecipeClick(meal.idMeal) },
+                        onLoginClick = { onLoginClick() }
                     )
                 }
             }

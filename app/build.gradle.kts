@@ -43,8 +43,6 @@ android {
 dependencies {
     // Firebase e google Auth
     implementation(platform(libs.firebase.bom))
-    // TODO: Add the dependencies for Firebase products you want to use
-    // When using the BoM, don't specify versions in Firebase dependencies
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.play.services.auth)
@@ -73,6 +71,7 @@ dependencies {
     implementation(libs.generativeai)
     implementation(libs.firebase.vertexai)
     implementation(libs.play.services.fido)
+    implementation(libs.androidx.runtime.livedata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

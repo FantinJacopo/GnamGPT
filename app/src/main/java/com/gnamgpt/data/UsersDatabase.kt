@@ -7,6 +7,8 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class UsersDatabase {
+    // dark = true, light = false
+
     private val db = FirebaseFirestore.getInstance()
     private val favoriteMealsCollection = db.collection("favorite_meals")
     private val usersPreferencesCollection = db.collection("user_preferences")
@@ -43,14 +45,14 @@ class UsersDatabase {
         }
     }
 
-    fun saveUserPreferences(theme: String, language: String) {
+    fun saveUserPreferences(theme: Boolean, language: String) {
         val auth = FirebaseAuth.getInstance()
         val userId = auth.currentUser?.uid
+        val t = if (theme) "dark" else "light"
 
         if (userId != null) {
-            val db = FirebaseFirestore.getInstance()
             val userPreferences = mapOf(
-                "theme" to theme,
+                "theme" to t,
                 "language" to language
             )
 
@@ -65,7 +67,6 @@ class UsersDatabase {
         val userId = auth.currentUser?.uid
 
         if (userId != null) {
-            val db = FirebaseFirestore.getInstance()
             usersPreferencesCollection.document(userId).get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {

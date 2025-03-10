@@ -25,7 +25,6 @@ fun LoadingScreen(message: String = "Loading...") {
                 text = message,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground
             )
         }
     }

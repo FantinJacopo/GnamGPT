@@ -4,16 +4,14 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.remember
-import androidx.compose.ui.res.colorResource
-import com.gnamgpt.R
-import com.gnamgpt.ui.theme.AppColors
-import com.gnamgpt.ui.theme.LocalAppColors
-import com.gnamgpt.ui.theme.ProvideAppColors
+import com.gnamgpt.viewmodel.UserViewModel
+import androidx.compose.runtime.livedata.observeAsState
 
-// Applica il tema personalizzato all'app
 @Composable
 fun GnamGPTTheme(
     isDarkMode: Boolean = isSystemInDarkTheme(),
@@ -24,49 +22,43 @@ fun GnamGPTTheme(
 
         val lightColors = remember {
             lightColorScheme(
-                primary = colors.primary400,
-                onPrimary = colors.text100,
-                secondary = colors.accent400,
-                onSecondary = colors.text50,
-                tertiary = colors.secondary400,
-                onTertiary = colors.text100,
-                background = colors.background200,
-                onBackground = colors.text100,
-                surface = colors.background200,
-                onSurface = colors.text100,
-                surfaceVariant = colors.background300,
-                error = colors.accent400,
-                onError = colors.text950,
-                primaryContainer = colors.primary200,
-                onPrimaryContainer = colors.text100,
-                secondaryContainer = colors.accent200,
-                onSecondaryContainer = colors.text100,
-                tertiaryContainer = colors.secondary200,
-                outline = colors.text300
+                primary = colors.primary,
+                onPrimary = colors.text,
+                secondary = colors.accent,
+                onSecondary = colors.text,
+                background = colors.background,
+                onBackground = colors.text,
+                surface = colors.surface,
+                onSurface = colors.text,
+                error = colors.error,
+                onError = colors.textDark,
+                primaryContainer = colors.primary,
+                onPrimaryContainer = colors.text,
+                secondaryContainer = colors.accent,
+                onSecondaryContainer = colors.text,
+                surfaceVariant = colors.surface,
+                outline = colors.text,
             )
         }
 
         val darkColors = remember {
             darkColorScheme(
-                primary = colors.primary400,
-                onPrimary = colors.text900,
-                secondary = colors.accent400,
-                onSecondary = colors.text900,
-                tertiary = colors.secondary600,
-                onTertiary = colors.text900,
-                background = colors.background200,
-                onBackground = colors.text900,
-                surface = colors.background900,
-                onSurface = colors.text900,
-                surfaceVariant = colors.background700,
-                error = colors.accent400,
-                onError = colors.text950,
-                primaryContainer = colors.primary700,
-                onPrimaryContainer = colors.text800,
-                secondaryContainer = colors.accent700,
-                onSecondaryContainer = colors.text800,
-                tertiaryContainer = colors.secondary700,
-                outline = colors.text600
+                primary = colors.primaryDark,
+                onPrimary = colors.textDark,
+                secondary = colors.accentDark,
+                onSecondary = colors.textDark,
+                background = colors.backgroundDark,
+                onBackground = colors.textDark,
+                surface = colors.surfaceDark,
+                onSurface = colors.textDark,
+                error = colors.errorDark,
+                onError = colors.text,
+                primaryContainer = colors.primaryDark,
+                onPrimaryContainer = colors.textDark,
+                secondaryContainer = colors.accentDark,
+                onSecondaryContainer = colors.textDark,
+                surfaceVariant = colors.surfaceDark,
+                outline = colors.textDark
             )
         }
 
@@ -75,5 +67,17 @@ fun GnamGPTTheme(
             typography = Typography,
             content = content
         )
+    }
+}
+
+@Composable
+fun GnamGPTTheme(content: @Composable () -> Unit) {
+    val userViewModel: UserViewModel = viewModel()
+    val isDarkModeFs by userViewModel.isDarkMode.observeAsState()
+    val isSystemDark = isSystemInDarkTheme()
+    val isDarkMode = isDarkModeFs ?: isSystemDark
+
+    key(isDarkMode) {
+        GnamGPTTheme(isDarkMode = isDarkMode, content = content)
     }
 }

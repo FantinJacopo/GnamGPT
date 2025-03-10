@@ -33,10 +33,10 @@ fun ProfileScreen(
         topBar = {
             TopAppBar(
                 title = { Text("Profilo Utente") },
-                colors = TopAppBarDefaults.topAppBarColors(
+                /*colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     titleContentColor = MaterialTheme.colorScheme.onPrimary
-                )
+                )*/
             )
         }
     ) { paddingValues ->

@@ -20,94 +20,46 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.gnamgpt.viewmodel.FavoritesViewModel
 import com.gnamgpt.data.UsersDatabase
+import com.gnamgpt.ui.components.RecipeItem
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 @Composable
 fun FavoritesScreen(
     onRecipeClick: (String) -> Unit,
     favoritesViewModel: FavoritesViewModel = viewModel()
 ) {
-    val favoriteMeals by favoritesViewModel.favoriteMeals.collectAsState()
-    val usersDatabase = remember { UsersDatabase() }
+    GnamGPTTheme {
+        val favoriteMeals by favoritesViewModel.favoriteMeals.collectAsState()
+        val usersDatabase = remember { UsersDatabase() }
 
-    LaunchedEffect(Unit) {
-        favoritesViewModel.loadFavoriteMeals()
-    }
-
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Favorite Recipes", style = MaterialTheme.typography.headlineLarge)
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        if (favoriteMeals.isNullOrEmpty()) {
-            Text("You have no favorite recipes.")
-        } else {
-            LazyColumn {
-                items(favoriteMeals!!) { meal ->
-                    RecipeItem(
-                        recipeName = meal.strMeal,
-                        imageUrl = meal.strMealThumb ?: "",
-                        onClick = { onRecipeClick(meal.idMeal) },
-                        onRemoveFavorite = {
-                            usersDatabase.removeRecipeFromFavorites(meal.idMeal)
-                            favoritesViewModel.loadFavoriteMeals()
-                        }
-                    )
-                }
-            }
+        LaunchedEffect(Unit) {
+            favoritesViewModel.loadFavoriteMeals()
         }
-    }
-}
 
-@Composable
-fun RecipeItem(
-    recipeName: String,
-    imageUrl: String,
-    onClick: () -> Unit,
-    onRemoveFavorite: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .shadow(4.dp, shape = RoundedCornerShape(12.dp)), // Aggiungi l'ombra
-        shape = RoundedCornerShape(12.dp) // Bordo arrotondato
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            AsyncImage(
-                model = imageUrl,
-                contentDescription = "Recipe Image",
-                modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .padding(end = 8.dp)
-                    .width(60.dp),
-                contentScale = ContentScale.Crop
-            )
+        Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+            Text("Favorite Recipes", style = MaterialTheme.typography.headlineLarge)
 
-            Text(
-                recipeName,
-                modifier = Modifier.weight(1f),
-                style = MaterialTheme.typography.bodyLarge
-            )
+            Spacer(modifier = Modifier.height(16.dp))
 
-            IconButton(onClick = onClick) {
-                Icon(
-                    Icons.Default.Info,
-                    contentDescription = "View Recipe Details",
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
-
-            IconButton(onClick = onRemoveFavorite) {
-                Icon(
-                    Icons.Default.Delete,
-                    contentDescription = "Remove from Favorites",
-                    tint = MaterialTheme.colorScheme.error
-                )
+            if (Firebase.auth.currentUser == null) {
+                Text("Log in to save your favorite recipes.")
+            } else if (favoriteMeals.isNullOrEmpty()) {
+                Text("You have no favorite recipes.")
+            } else {
+                LazyColumn {
+                    items(favoriteMeals!!) { meal ->
+                        RecipeItem(
+                            recipeName = meal.strMeal,
+                            imageUrl = meal.strMealThumb ?: "",
+                            onClick = { onRecipeClick(meal.idMeal) },
+                            onRemoveFavorite = {
+                                usersDatabase.removeRecipeFromFavorites(meal.idMeal)
+                                favoritesViewModel.loadFavoriteMeals()
+                            }
+                        )
+                    }
+                }
             }
         }
     }

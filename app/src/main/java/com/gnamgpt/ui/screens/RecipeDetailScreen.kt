@@ -1,26 +1,34 @@
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
+import com.gnamgpt.data.UsersDatabase
 import com.gnamgpt.model.Recipe
+import com.gnamgpt.ui.components.FavoriteMeal
+import com.gnamgpt.ui.components.Flag
 import com.gnamgpt.viewmodel.MealViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeDetailScreen(
     mealId: String,
-    mealViewModel: MealViewModel = viewModel()
+    mealViewModel: MealViewModel = viewModel(),
+    usersDatabase: UsersDatabase,
+    onLoginClick: () -> Unit
 ) {
     Log.d("RecipeDetailScreen", "onCreate: mealId = $mealId")
     val mealDetail by mealViewModel.mealDetail.collectAsState()
@@ -49,24 +57,41 @@ fun RecipeDetailScreen(
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(250.dp),
+                        .height(250.dp)
+                        .clip(RoundedCornerShape(16.dp)),
                     contentScale = ContentScale.Crop
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Text(
-                    text = meal.strMeal ?: "N/A",
-                    style = MaterialTheme.typography.headlineLarge,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = meal.strMeal ?: "N/A",
+                        style = MaterialTheme.typography.headlineLarge,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    FavoriteMeal(
+                        recipeId = meal.idMeal,
+                        usersDatabase = usersDatabase,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .padding(start = 8.dp),
+                        onLoginClick = onLoginClick
+                    )
+                }
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 // Categoria e Area
-                Text(text = "Category: ${meal.strCategory ?: "N/A"}", style = MaterialTheme.typography.titleMedium)
-                Text(text = "Area: ${meal.strArea ?: "N/A"}", style = MaterialTheme.typography.titleMedium)
+                Text(text = meal.strCategory ?: "N/A", style = MaterialTheme.typography.titleMedium)
+                meal.strArea?.let { area -> Flag(area) }
 
                 Spacer(modifier = Modifier.height(16.dp))
 

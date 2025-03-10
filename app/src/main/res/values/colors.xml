@@ -72,4 +72,28 @@
     <color name="Accent800">#5D4109</color>
     <color name="Accent900">#2E2005</color>
     <color name="Accent950">#171002</color>
+
+    <!-- light -->
+    <color name="Primary">#9cbfce</color>
+    <color name="Secondary">#dddbff</color>
+    <color name="Accent">#eed096</color>
+    <color name="Text">#262626</color>
+    <color name="Background">#ffffff</color>
+    <color name="Info">#78b0fa</color>
+    <color name="Success">#5bf558</color>
+    <color name="Warning">#ebae34</color>
+    <color name="Error">@android:color/holo_red_dark</color>
+    <color name="Surface">#E3F2FD</color>
+
+    <!-- dark -->
+    <color name="PrimaryDark">#d4b267</color>
+    <color name="SecondaryDark">#547980</color>
+    <color name="AccentDark">#936fbc</color>
+    <color name="TextDark">#ffffff</color>
+    <color name="BackgroundDark">#212121</color>
+    <color name="InfoDark">#6888b3</color>
+    <color name="SuccessDark">#4d7522</color>
+    <color name="WarningDark">#e8bc56</color>
+    <color name="ErrorDark">@android:color/holo_red_dark</color>
+    <color name="SurfaceDark">#303030</color>
 </resources>

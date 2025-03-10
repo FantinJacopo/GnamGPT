@@ -17,7 +17,8 @@ import com.gnamgpt.viewmodel.MealViewModel
 fun CategoryMealsScreen(
     categoryName: String,
     mealViewModel: MealViewModel = viewModel(),
-    onRecipeClick: (String) -> Unit
+    onRecipeClick: (String) -> Unit,
+    onLoginClick: () -> Unit
 ) {
     val categoryMeals by mealViewModel.categoryMeals.collectAsState()
 
@@ -51,7 +52,8 @@ fun CategoryMealsScreen(
                             imageUrl = meal.strMealThumb ?: "",
                             recipeId = meal.idMeal,
                             usersDatabase = mealViewModel.usersDatabase,
-                            onClick = { onRecipeClick(meal.idMeal) }
+                            onClick = { onRecipeClick(meal.idMeal) },
+                            onLoginClick = { onLoginClick() }
                         )
                     }
                 }

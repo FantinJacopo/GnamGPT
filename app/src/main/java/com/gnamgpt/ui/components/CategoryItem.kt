@@ -34,8 +34,8 @@ fun CategoryItem(
     imageUrl: String? = null,
     icon: ImageVector? = null,
     onClick: () -> Unit,
-    containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
-    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer
+    //containerColor: Color = GnamGptTopAppBar().colorScheme.primaryContainer,
+    //contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -48,7 +48,7 @@ fun CategoryItem(
             modifier = Modifier
                 .size(60.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .background(containerColor)
+                //.background(containerColor)
         ) {
             if (imageUrl != null) {
                 AsyncImage(
@@ -62,14 +62,14 @@ fun CategoryItem(
                 Icon(
                     icon,
                     contentDescription = name,
-                    tint = contentColor,
+                    //tint = contentColor,
                     modifier = Modifier.size(32.dp)
                 )
             } else {
                 Icon(
                     Icons.Filled.ShoppingCart,
                     contentDescription = "No Image",
-                    tint = contentColor,
+                    //tint = contentColor,
                     modifier = Modifier.size(32.dp)
                 )
             }
