@@ -120,28 +120,29 @@ For detailed API documentation, visit [Gemini API Documentation](https://api.gem
 
 | Color Name      | Color Preview                                                | Hex           |
 | --------------- | ------------------------------------------------------------ | ------------- |
-| Primary         | ![#9cbfce](https://via.placeholder.com/10/9cbfce?text=+)       | #9cbfce       |
-| Secondary       | ![#dddbff](https://via.placeholder.com/10/dddbff?text=+)       | #dddbff       |
-| Accent          | ![#eed096](https://via.placeholder.com/10/eed096?text=+)       | #eed096       |
-| Text            | ![#262626](https://via.placeholder.com/10/262626?text=+)       | #262626       |
-| Background      | ![#ffffff](https://via.placeholder.com/10/ffffff?text=+)       | #ffffff       |
-| Info            | ![#78b0fa](https://via.placeholder.com/10/78b0fa?text=+)       | #78b0fa       |
-| Success         | ![#5bf558](https://via.placeholder.com/10/5bf558?text=+)       | #5bf558       |
-| Warning         | ![#ebae34](https://via.placeholder.com/10/ebae34?text=+)       | #ebae34       |
-| Error           | ![@android:color/holo_red_dark](https://via.placeholder.com/10/ff0000?text=+) | @android:color/holo_red_dark |
-| Surface         | ![#E3F2FD](https://via.placeholder.com/10/E3F2FD?text=+)       | #E3F2FD       |
+| Primary         | ![Primary](https://placehold.co/15x15/9cbfce/9cbfce.png)       | #9cbfce       |
+| Secondary       | ![Secondary](https://placehold.co/15x15/dddbff/dddbff.png)     | #dddbff       |
+| Accent          | ![Accent](https://placehold.co/15x15/eed096/eed096.png)       | #eed096       |
+| Text            | ![Text](https://placehold.co/15x15/262626/262626.png)         | #262626       |
+| Background      | ![Background](https://placehold.co/15x15/ffffff/ffffff.png)   | #ffffff       |
+| Info            | ![Info](https://placehold.co/15x15/78b0fa/78b0fa.png)         | #78b0fa       |
+| Success         | ![Success](https://placehold.co/15x15/5bf558/5bf558.png)     | #5bf558       |
+| Warning         | ![Warning](https://placehold.co/15x15/ebae34/ebae34.png)     | #ebae34       |
+| Error           | ![Error](https://placehold.co/15x15/ff0000/ff0000.png)       | #ff0000       |
+| Surface         | ![Surface](https://placehold.co/15x15/E3F2FD/E3F2FD.png)     | #E3F2FD       |
 
 ### Dark Theme 🌚
 
 | Color Name      | Color Preview                                                | Hex           |
 | --------------- | ------------------------------------------------------------ | ------------- |
-| PrimaryDark     | ![#d4b267](https://via.placeholder.com/10/d4b267?text=+)       | #d4b267       |
-| SecondaryDark   | ![#547980](https://via.placeholder.com/10/547980?text=+)       | #547980       |
-| AccentDark      | ![#936fbc](https://via.placeholder.com/10/936fbc?text=+)       | #936fbc       |
-| TextDark        | ![#ffffff](https://via.placeholder.com/10/ffffff?text=+)       | #ffffff       |
-| BackgroundDark  | ![#212121](https://via.placeholder.com/10/212121?text=+)       | #212121       |
-| InfoDark        | ![#6888b3](https://via.placeholder.com/10/6888b3?text=+)       | #6888b3       |
-| SuccessDark     | ![#4d7522](https://via.placeholder.com/10/4d7522?text=+)       | #4d7522       |
-| WarningDark     | ![#e8bc56](https://via.placeholder.com/10/e8bc56?text=+)       | #e8bc56       |
-| ErrorDark       | ![@android:color/holo_red_dark](https://via.placeholder.com/10/ff0000?text=+) | @android:color/holo_red_dark |
-| SurfaceDark     | ![#303030](https://via.placeholder.com/10/303030?text=+)       | #303030       |
+| PrimaryDark     | ![PrimaryDark](https://placehold.co/15x15/d4b267/d4b267.png)  | #d4b267       |
+| SecondaryDark   | ![SecondaryDark](https://placehold.co/15x15/547980/547980.png)| #547980       |
+| AccentDark      | ![AccentDark](https://placehold.co/15x15/936fbc/936fbc.png)   | #936fbc       |
+| TextDark        | ![TextDark](https://placehold.co/15x15/ffffff/ffffff.png)     | #ffffff       |
+| BackgroundDark  | ![BackgroundDark](https://placehold.co/15x15/212121/212121.png) | #212121     |
+| InfoDark        | ![InfoDark](https://placehold.co/15x15/6888b3/6888b3.png)    | #6888b3       |
+| SuccessDark     | ![SuccessDark](https://placehold.co/15x15/4d7522/4d7522.png) | #4d7522       |
+| WarningDark     | ![WarningDark](https://placehold.co/15x15/e8bc56/e8bc56.png) | #e8bc56       |
+| ErrorDark       | ![ErrorDark](https://placehold.co/15x15/ff0000/ff0000.png)   | #ff0000       |
+| SurfaceDark     | ![SurfaceDark](https://placehold.co/15x15/303030/303030.png) | #303030       |
+
