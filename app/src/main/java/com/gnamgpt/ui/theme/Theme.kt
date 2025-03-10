@@ -6,17 +6,19 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.remember
-import com.gnamgpt.viewmodel.UserViewModel
 import androidx.compose.runtime.livedata.observeAsState
+import com.gnamgpt.GnamGPTApp
 
 @Composable
 fun GnamGPTTheme(
-    isDarkMode: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
+    val userViewModel = remember { GnamGPTApp.getInstance().userViewModel }
+    val isDarkMode by userViewModel.isDarkMode.observeAsState()
+    val isSystemDark = isSystemInDarkTheme()
+    val effectiveDarkMode = isDarkMode ?: isSystemDark
+
     ProvideAppColors {
         val colors = LocalAppColors.current
 
@@ -63,21 +65,9 @@ fun GnamGPTTheme(
         }
 
         MaterialTheme(
-            colorScheme = if (isDarkMode) darkColors else lightColors,
+            colorScheme = if (effectiveDarkMode) darkColors else lightColors,
             typography = Typography,
             content = content
         )
-    }
-}
-
-@Composable
-fun GnamGPTTheme(content: @Composable () -> Unit) {
-    val userViewModel: UserViewModel = viewModel()
-    val isDarkModeFs by userViewModel.isDarkMode.observeAsState()
-    val isSystemDark = isSystemInDarkTheme()
-    val isDarkMode = isDarkModeFs ?: isSystemDark
-
-    key(isDarkMode) {
-        GnamGPTTheme(isDarkMode = isDarkMode, content = content)
     }
 }

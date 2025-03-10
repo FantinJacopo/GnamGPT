@@ -8,9 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.gnamgpt.GnamGPTApp
 import com.gnamgpt.ui.theme.GnamGPTTheme
-import com.gnamgpt.viewmodel.UserViewModel
 
 @Composable
 fun SettingsScreen(
@@ -19,7 +18,7 @@ fun SettingsScreen(
     onToggleDarkMode: (Boolean) -> Unit
 ) {
     // Ottieni il ViewModel
-    val userViewModel: UserViewModel = viewModel()
+    val userViewModel = remember { GnamGPTApp.getInstance().userViewModel }
 
     // Osserva il valore di isDarkMode dal ViewModel
     val isDarkMode by userViewModel.isDarkMode.observeAsState(false)
