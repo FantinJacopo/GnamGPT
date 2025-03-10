@@ -5,21 +5,21 @@ A simple Android application that uses TheMealDB API to retrieve recipes and pro
 
 ## Project Showdown 🔍
 
-<img src="https://github.com/user-attachments/assets/997d0fdf-dee1-49cb-ac53-a95f2bd78167" width="300">
+<img src="https://github.com/user-attachments/assets/997d0fdf-dee1-49cb-ac53-a95f2bd78167" width="200">
 
-<img src="https://github.com/user-attachments/assets/1dd38e0c-e1dd-4547-ac6d-a07ec4f9cc43" width="300">
+<img src="https://github.com/user-attachments/assets/1dd38e0c-e1dd-4547-ac6d-a07ec4f9cc43" width="200">
 
-<img src="https://github.com/user-attachments/assets/4a890cdc-942a-4d56-b1eb-04d423820f10" width="300">
+<img src="https://github.com/user-attachments/assets/4a890cdc-942a-4d56-b1eb-04d423820f10" width="200">
 
-<img src="https://github.com/user-attachments/assets/06f3c814-710c-43b9-bb4d-9065bd4b7d55" width="300">
+<img src="https://github.com/user-attachments/assets/06f3c814-710c-43b9-bb4d-9065bd4b7d55" width="200">
 
-<img src="https://github.com/user-attachments/assets/8bb3ed73-6d3b-4686-ad29-005051f0781d" width="300">
+<img src="https://github.com/user-attachments/assets/8bb3ed73-6d3b-4686-ad29-005051f0781d" width="200">
 
-<img src="https://github.com/user-attachments/assets/1893fc70-2803-436b-84af-22959d876cbb" width="300">
+<img src="https://github.com/user-attachments/assets/1893fc70-2803-436b-84af-22959d876cbb" width="200">
 
-<img src="https://github.com/user-attachments/assets/edd0bcfd-e2ad-43ea-a975-8d4d7f7828a7" width="300">
+<img src="https://github.com/user-attachments/assets/edd0bcfd-e2ad-43ea-a975-8d4d7f7828a7" width="200">
 
-<img src="https://github.com/user-attachments/assets/242bf312-6f86-4281-8d27-049eecab7cc5" width="300">
+<img src="https://github.com/user-attachments/assets/242bf312-6f86-4281-8d27-049eecab7cc5" width="200">
 
 ## Features 🔥
 
