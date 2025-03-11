@@ -38,7 +38,7 @@ class MealViewModel : ViewModel() {
     val usersDatabase = UsersDatabase()
 
     init {
-        loadCategories(5)       //  TODO: se ho tempo lo metto fra le impostazioni?
+        loadCategories(5)
     }
 
     fun loadMealDetail(mealId: String) {

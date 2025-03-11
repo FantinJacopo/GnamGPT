@@ -1,18 +1,15 @@
 package com.gnamgpt.data
 
-import com.gnamgpt.BuildConfig
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/"
-
-    private const val apiKey: String = BuildConfig.API_KEY // Recupero della chiave API dal build.gradle
-
+    private const val BASE_URL = "https://generativelanguage.googleapis.com/"
 
     private val client = OkHttpClient.Builder()
-        .addInterceptor(ApiKeyInterceptor(apiKey))  // Aggiunge l'Interceptor con la chiave API
+        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
 
     val apiService: GeminiApiService = Retrofit.Builder()

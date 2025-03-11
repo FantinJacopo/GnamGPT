@@ -1,4 +1,7 @@
 import java.util.Properties
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
+val key: String = gradleLocalProperties(rootDir, providers).getProperty("API_KEY")
 
 plugins {
     alias(libs.plugins.android.application)
@@ -17,17 +20,15 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-        val apiKey: String? = project.findProperty("API_KEY") as String?
-        buildConfigField("String", "API_KEY", "\"${apiKey ?: ""}\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         debug {
-            buildConfigField("String", "API_KEY", "\"${getApiKey()}\"")
+            buildConfigField("String", "API_KEY", key)
         }
         release {
-            buildConfigField("String", "API_KEY", "\"${getApiKey()}\"")
+            buildConfigField("String", "API_KEY", key)
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -55,14 +56,20 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth.ktx)
-    implementation(libs.play.services.auth)
     implementation(libs.firebase.firestore.ktx)
 
     // Gemini
-    implementation(libs.okhttp)
+    implementation(libs.okhttp.v4110)
+    implementation(libs.play.services.auth.v2130)
+    implementation(libs.logging.interceptor)
+
+    // Markdown
+    implementation(libs.markdown)
+
 
     // Retrofit e gson
     implementation(libs.retrofit)
+    implementation(libs.gson)
     implementation(libs.converter.gson)
 
     implementation(libs.material)

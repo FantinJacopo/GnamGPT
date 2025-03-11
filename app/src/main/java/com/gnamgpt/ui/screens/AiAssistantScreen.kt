@@ -1,6 +1,7 @@
 package com.gnamgpt.ui.screens
 
 import android.annotation.SuppressLint
+import android.text.Html
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,28 +13,37 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.gnamgpt.viewmodel.AssistantViewModel
+import com.gnamgpt.BuildConfig
 import com.gnamgpt.model.Message
+import com.gnamgpt.viewmodel.AssistantViewModel
+import com.gnamgpt.viewmodel.AssistantViewModelFactory
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun AiAssistantScreen(viewModel: AssistantViewModel = viewModel()) {
+fun AiAssistantScreen() {
+    val apiKey = BuildConfig.API_KEY
+    var showAnimation by remember { mutableStateOf(false) }
+
+    val viewModel: AssistantViewModel = viewModel(factory = AssistantViewModelFactory(apiKey))
     val messages by viewModel.messages.collectAsState()
-    val isLoading by viewModel.isLoading.collectAsState()
     var userInput by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
 
-    // Scorrere automaticamente all'ultimo messaggio
     LaunchedEffect(messages.size) {
-        listState.animateScrollToItem(messages.size - 1)
+        if (messages.isNotEmpty()) {
+            listState.animateScrollToItem(messages.size - 1)
+        }
     }
 
     Scaffold {
         Column(modifier = Modifier.fillMaxSize()) {
             LazyColumn(
-                state = listState, // Associa lo stato alla LazyColumn
+                state = listState,
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
@@ -43,9 +53,17 @@ fun AiAssistantScreen(viewModel: AssistantViewModel = viewModel()) {
                     MessageBubble(message)
                     Spacer(modifier = Modifier.height(8.dp))
                 }
-
-                if (isLoading) {
-                    item { TypingIndicator() }
+                if (showAnimation) {
+                    item {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    }
                 }
             }
 
@@ -69,8 +87,9 @@ fun AiAssistantScreen(viewModel: AssistantViewModel = viewModel()) {
                 IconButton(
                     onClick = {
                         if (userInput.isNotBlank()) {
-                            viewModel.sendMessage(userInput)
+                            viewModel.sendMessage(userInput){ showAnimation = false }
                             userInput = ""
+                            showAnimation = true
                         }
                     },
                     enabled = userInput.isNotBlank()
@@ -81,7 +100,6 @@ fun AiAssistantScreen(viewModel: AssistantViewModel = viewModel()) {
         }
     }
 }
-
 
 @Composable
 fun MessageBubble(message: Message) {
@@ -102,23 +120,30 @@ fun MessageBubble(message: Message) {
                 MaterialTheme.colorScheme.secondaryContainer,
             modifier = Modifier.widthIn(max = 280.dp)
         ) {
-            Text(
-                text = message.text,
-                modifier = Modifier.padding(12.dp),
-                color = if (message.isFromUser)
-                    MaterialTheme.colorScheme.onPrimary
-                else
-                    MaterialTheme.colorScheme.onSecondaryContainer
-            )
+            if (message.isFromUser) {
+                Text(
+                    text = message.text,
+                    modifier = Modifier.padding(12.dp),
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            } else {
+                val context = LocalContext.current
+                val textColor = MaterialTheme.colorScheme.onSecondaryContainer.toArgb() // Ottieni il colore qui
+                AndroidView(
+                    factory = { android.widget.TextView(context) },
+                    update = { textView ->
+                        textView.text = Html.fromHtml(message.text, Html.FROM_HTML_MODE_LEGACY)
+                        textView.setTextColor(textColor)
+                        textView.setPadding(
+                            12.dp.value.toInt(),
+                            12.dp.value.toInt(),
+                            12.dp.value.toInt(),
+                            12.dp.value.toInt()
+                        )
+                    },
+                    modifier = Modifier.padding(12.dp)
+                )
+            }
         }
     }
-}
-
-@Composable
-fun TypingIndicator() {
-    Text(
-        text = "GnamGPT sta scrivendo...",
-        modifier = Modifier.padding(12.dp),
-        color = MaterialTheme.colorScheme.secondary
-    )
 }

@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkModule {
-    private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"  //TODO: cambiare URL con mia chiave api
+    private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
 
     val api: TheMealDBService by lazy {
         Retrofit.Builder()
