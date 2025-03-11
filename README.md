@@ -30,7 +30,7 @@ A simple Android application that uses TheMealDB API to retrieve recipes and pro
   Browse recipes by categories such as Beef, Chicken, Vegetarian, etc.
 
 - **AI Assistant** 🤖  
-  Interact with the **Gemini AI** assistant to get personalized cooking suggestions and recipe recommendations.
+  Interact with the **GnamGPT** AI assistant to get personalized cooking suggestions and recipe recommendations.
 
 - **Firebase Authentication** 🔑  
   Sign in with Google to personalize your experience and save favorite recipes.
