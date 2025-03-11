@@ -114,24 +114,48 @@ For full documentation, visit [TheMealDB API Documentation](https://www.themeald
 
 GnamGPT uses the **Gemini API** for AI-powered assistance. The API facilitates interactions with the AI assistant for recipe recommendations and personalized cooking suggestions.
 
-**Base URL:**  
-- `https://api.gemini.com/v1/`
+**Base URL:** - `https://generativelanguage.googleapis.com/`
 
 **Endpoints:**
 
-- **Send User Message**
-  - **Endpoint:** `/assistants/sendMessage`
+- **Generate Content**
+  - **Endpoint:** `/v1beta/models/gemini-2.0-flash:generateContent`
   - **Method:** `POST`
-  - **Description:** Sends a message to the Gemini AI assistant and retrieves a response.
-  - **Example:** `https://api.gemini.com/v1/assistants/sendMessage`
+  - **Description:** Sends a request to the Gemini AI model to generate content based on the provided prompt.
+  - **Example:** `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`
 
-- **Get Assistant Status**
-  - **Endpoint:** `/assistants/status`
-  - **Method:** `GET`
-  - **Description:** Retrieves the current status of the AI assistant.
-  - **Example:** `https://api.gemini.com/v1/assistants/status`
+**Authentication:**
 
-For detailed API documentation, visit [Gemini API Documentation](https://api.gemini.com/docs).
+- **API Key:**
+  - GnamGPT uses an API key for authentication.
+  - The API key is passed as an `x-goog-api-key` header with each request.
+
+**Request Body:**
+
+- The request body should be a JSON object with the following structure:
+
+```json
+{
+  "contents": [
+    {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are a helpful and informative AI assistant." 
+        }
+      ]
+    },
+    {
+      "parts": [
+        {
+          "text": "User's message here" 
+        }
+      ]
+    }
+  ]
+}
+```
+
 ## Color Reference 🎨
 
 ### Light Theme 🌞
